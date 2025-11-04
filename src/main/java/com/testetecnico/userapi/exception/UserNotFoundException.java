@@ -1,4 +1,4 @@
-package com.testetecnico.userapi.exeption;
+package com.testetecnico.userapi.exception;
 
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(String message) {

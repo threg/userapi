@@ -1,7 +1,8 @@
 package com.testetecnico.userapi.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-import com.testetecnico.userapi.exeption.UserNotFoundException;
+
+import com.testetecnico.userapi.exception.UserNotFoundException;
 import com.testetecnico.userapi.model.User;
 import com.testetecnico.userapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
