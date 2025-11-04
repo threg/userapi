@@ -1,5 +1,6 @@
 package com.testetecnico.userapi.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import com.testetecnico.userapi.exeption.UserNotFoundException;
 import com.testetecnico.userapi.model.User;
 import com.testetecnico.userapi.repository.UserRepository;
@@ -14,6 +15,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public List<User> findAll() {
         return userRepository.findAll();
     }
@@ -23,6 +27,9 @@ public class UserService {
     }
 
     public User save(User user) {
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
+
         return userRepository.save(user);
     }
 
@@ -32,7 +39,8 @@ public class UserService {
         existingUser.setEmail(newUser.getEmail());
 
         if (newUser.getPassword() != null && !newUser.getPassword().isBlank()) {
-            existingUser.setPassword(newUser.getPassword());
+            String hashedPassword = passwordEncoder.encode(newUser.getPassword());
+            existingUser.setPassword(hashedPassword);
         }
 
         return userRepository.save(existingUser);
